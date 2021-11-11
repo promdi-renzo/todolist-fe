@@ -1,0 +1,13 @@
+.null-pages {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:1rem;
+}
+.null-pages img {
+  height: 150px;
+  width: auto;
+}

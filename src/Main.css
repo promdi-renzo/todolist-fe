@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Permanent+Marker&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body{
+    font-family: 'Architects Daughter', cursive;
+    font-size: 100%;
+    background-color: #fff;
+    background: url('./assets/background.jpg') no-repeat;
+    background-size: fixed;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Permanent Marker', cursive;
+    font-weight: normal;
+}
+p, pre{
+    font-family: 'Architects Daughter', cursive;
+    font-size: 1rem;
+}
+a {
+    color: rgba(0, 0, 0, 1);
+    font-weight: 900;
+}
+svg text{
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+svg text::selection{
+    background: transparent;
+}
+.main-button svg text{
+    cursor: pointer;
+}
+
+.add-button svg:hover,
+.main-button svg:hover{
+    cursor: pointer;
+    scale: 1.1;
+    transition: all ease-in-out 500ms;
+}
+.list-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
