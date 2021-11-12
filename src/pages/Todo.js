@@ -1,13 +1,11 @@
-import { useState } from "react";
 import Header from "../components/Header";
 import Task from "../components/Task";
 
 import AddTask from "../components/AddTask";
 
-function Todo({ DataArray, state }) {
+function Todo({ DataArray, setDataArray, state }) {
 
   const [willAddTask, setWillAddTask] = state;
-  const [data, setData] = useState(DataArray);
 
 
   const cancelAddTask = () => {
@@ -17,10 +15,10 @@ function Todo({ DataArray, state }) {
     <div className="list-container">
       <Header title="To Do" state={state}/>
       {willAddTask ? <AddTask cancelAddTask={cancelAddTask} /> : null}
-      {data
+      {DataArray
         .filter((item) => !item.archived)
         .map((item) => (
-          <Task key={item.id} data={data} setData={setData} task={item} />
+          <Task key={item.id} data={DataArray} setData={setDataArray} task={item} />
         ))}
     </div>
   );
