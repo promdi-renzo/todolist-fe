@@ -3,8 +3,12 @@ import Home from './pages/Home'
 import Todo from "./pages/Todo";
 import Archived from "./pages/Archived";
 import TodoView from "./pages/TodoView";
+import { useState } from "react";
 // import About from './pages/About'
+
+
 function App() {
+  const [willAddTask, setWillAddTask] = useState(false);
   const dt = [
     {
         id: 1,
@@ -30,8 +34,8 @@ function App() {
 ]
   return (
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="todos" element={<Todo DataArray={dt} />} />
+        <Route exact path="/" element={<Home state={[willAddTask, setWillAddTask]} />} />
+        <Route path="todos" element={<Todo DataArray={dt} state={[willAddTask, setWillAddTask]} />} />
         <Route path="archived" element={<Archived DataArray={dt} />} />
 
 

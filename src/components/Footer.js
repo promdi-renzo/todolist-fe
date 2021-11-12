@@ -1,9 +1,15 @@
+import { Link } from 'react-router-dom';
 import AddButton from './AddButton.js'
+function Footer({state}) {
 
-function Footer() {
+    const setWillAddTask = state[1];
+
+    const addTask = () => {
+        setWillAddTask(true);
+    }
     return (
         <div style={footerStyle}>
-            <AddButton />
+            <Link to='todos'><AddButton onClick={addTask}/></Link>
         </div>
     )
 }

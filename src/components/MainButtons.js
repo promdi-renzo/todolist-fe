@@ -19,7 +19,7 @@ const mainButtonsStyle = {
     padding: '5rem .5rem',
 }
 
-function MainButtons() {
+function MainButtons({state}) {
     return (
         <div style={mainButtonsStyle}>
             <Link to="todos"><Button text="To Do" style={button} /></Link>

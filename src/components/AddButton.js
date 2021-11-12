@@ -1,6 +1,6 @@
-function AddButton(props) {
+function AddButton({onClick}) {
   return (
-    <div className="add-button" {...props}>
+    <div className="add-button" onClick={onClick}>
       <svg
         width="162"
         height="97"
