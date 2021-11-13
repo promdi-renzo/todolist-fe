@@ -3,7 +3,7 @@ import Task from "../components/Task";
 
 import AddTask from "../components/AddTask";
 
-function Todo({ DataArray, setDataArray, state }) {
+function Todo({ DataArray, setDataArray, state, reload }) {
 
   const [willAddTask, setWillAddTask] = state;
 
@@ -14,7 +14,7 @@ function Todo({ DataArray, setDataArray, state }) {
   return (
     <div className="list-container">
       <Header title="To Do" state={state}/>
-      {willAddTask ? <AddTask cancelAddTask={cancelAddTask} /> : null}
+      {willAddTask ? <AddTask cancelAddTask={cancelAddTask} setDataArray={setDataArray}/> : null}
       {DataArray
         .filter((item) => !item.archived)
         .map((item) => (

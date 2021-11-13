@@ -1,66 +1,109 @@
-function AddTask({ cancelAddTask }) {
+import axios from "axios";
+import { useState } from "react";
+
+function AddTask({ cancelAddTask, setDataArray }) {
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+
+  const updateDataArray = ( data ) => {
+    setDataArray(prevDataArray => {
+      return [...prevDataArray, data];
+    });
+  }
+  const handleTitleInput = (e) => {
+    setNewTitle(e.target.value);
+  };
+  const handleDescriptionInput = (e) => {
+    setNewDescription(e.target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post("https://618f0ee950e24d0017ce1577.mockapi.io/api/todos", {
+        title: newTitle,
+        description: newDescription,
+      })
+      .then((res) => {
+        updateDataArray(res.data);
+        setNewTitle("");
+        setNewDescription("");
+        cancelAddTask();
+      });
+  };
 
   return (
     <div className="add-task" style={addStyle}>
-      <form style={formStyle}>
+      <form style={formStyle} onSubmit={handleSubmit}>
         <div className="input-group" style={inputGroupStyle}>
-          <input type="text" style={inputStyle} placeholder="Add Task Title" />
-          <textarea style={inputStyle} placeholder="Add Task Description"></textarea>
+          <input
+            type="text"
+            style={inputStyle}
+            placeholder="Add Task Title"
+            value={newTitle}
+            onChange={handleTitleInput}
+          />
+          <textarea
+            style={inputStyle}
+            placeholder="Add Task Description"
+            value={newDescription}
+            onChange={handleDescriptionInput}
+          ></textarea>
         </div>
         <div className="button-group" style={buttonGroupStyle}>
-            <button style={cancelButton} onClick={cancelAddTask}>Cancel</button>
-            <button style={submitButton} type="submit">Add Task</button>
+          <button style={cancelButton} onClick={cancelAddTask}>
+            Cancel
+          </button>
+          <button style={submitButton} type="submit">
+            Add Task
+          </button>
         </div>
       </form>
     </div>
   );
 }
 const addStyle = {
-  width: '100%',
-  borderBottom: '2px solid #000',
-  backgroundColor: 'rgba(255,255,255,.5)',
-  
-}
+  width: "100%",
+  borderBottom: "2px solid #000",
+  backgroundColor: "rgba(255,255,255,.5)",
+};
 const formStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
-  padding: '1rem',
-  gap: '.5rem',
-}
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+  padding: "1rem",
+  gap: ".5rem",
+};
 const inputGroupStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  alignItems: 'flex-start',
-  width: '100%',
-  gap: '.3rem'
-}
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  alignItems: "flex-start",
+  width: "100%",
+  gap: ".3rem",
+};
 const buttonGroupStyle = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  width: '100%',
-}
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+};
 const inputStyle = {
-  width: '100%',
-  padding: '.5rem'
-}
+  width: "100%",
+  padding: ".5rem",
+};
 const submitButton = {
-  backgroundColor: '#000',
-  padding: '.3rem .5rem',
-  color: '#fff',
-  border: 'none',
-
-}
+  backgroundColor: "#000",
+  padding: ".3rem .5rem",
+  color: "#fff",
+  border: "none",
+};
 const cancelButton = {
-  backgroundColor: '#fff',
-  padding: '.3rem .5rem',
-  color: '#000',
-  border: '1px solid #000',
-
-}
+  backgroundColor: "#fff",
+  padding: ".3rem .5rem",
+  color: "#000",
+  border: "1px solid #000",
+};
 export default AddTask;

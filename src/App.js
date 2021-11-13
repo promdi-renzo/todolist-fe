@@ -13,9 +13,9 @@ function App() {
 
   useEffect(() => {
     const url =
-      "https://65a35446-c100-4852-8df7-060a723386d3.mock.pstmn.io/todos";
+      "https://618f0ee950e24d0017ce1577.mockapi.io/api/todos";
     axios.get(url).then((res) => {
-      setDataArray(res.data.todos);
+      setDataArray(res.data);
     });
   }, []);
 
