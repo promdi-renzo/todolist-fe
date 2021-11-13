@@ -32,7 +32,7 @@ function AddTask({ cancelAddTask, setDataArray }) {
       target.classList.add("error-input");
       setAcceptDescription(false);
     }
-    if (target.value.length < 25) {
+    if (target.value.length < 50) {
       target.classList.remove("error-input");
       target.classList.add("success-input");
       setAcceptDescription(true);
