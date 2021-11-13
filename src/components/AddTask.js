@@ -4,31 +4,67 @@ import { useState } from "react";
 function AddTask({ cancelAddTask, setDataArray }) {
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
-
-  const updateDataArray = ( data ) => {
-    setDataArray(prevDataArray => {
+  const [acceptTitle, setAcceptTitle] = useState(false);
+  const [acceptDescription, setAcceptDescription] = useState(false);
+  const updateDataArray = (data) => {
+    setDataArray((prevDataArray) => {
       return [...prevDataArray, data];
     });
-  }
+  };
   const handleTitleInput = (e) => {
-    setNewTitle(e.target.value);
+    const target = e.target;
+    if (target.value.length < 2 || target.value.length > 25) {
+      target.classList.remove("success-input");
+      target.classList.add("error-input");
+      setAcceptTitle(false);
+    }
+    if (target.value.length > 2 && target.value.length < 25) {
+      target.classList.remove("error-input");
+      target.classList.add("success-input");
+      setAcceptTitle(true);
+    }
+    setNewTitle(target.value);
   };
   const handleDescriptionInput = (e) => {
-    setNewDescription(e.target.value);
+    const target = e.target;
+    if (target.value.length > 50) {
+      target.classList.remove("success-input");
+      target.classList.add("error-input");
+      setAcceptDescription(false);
+    }
+    if (target.value.length < 25) {
+      target.classList.remove("error-input");
+      target.classList.add("success-input");
+      setAcceptDescription(true);
+    }
+    setNewDescription(target.value);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("https://618f0ee950e24d0017ce1577.mockapi.io/api/todos", {
-        title: newTitle,
-        description: newDescription,
-      })
-      .then((res) => {
-        updateDataArray(res.data);
-        setNewTitle("");
-        setNewDescription("");
-        cancelAddTask();
-      });
+
+    try {
+      if (!acceptTitle || !acceptDescription) {
+        return;
+      }
+      axios
+        .post("https://618f0ee950e24d0017ce1577.mockapi.io/api/todos", {
+          title: newTitle,
+          description: newDescription,
+        })
+        .then((res) => res.data)
+        .then((data) => {
+          updateDataArray(data);
+          setNewTitle("");
+          setNewDescription("");
+          cancelAddTask();
+        })
+        .catch((err) => {
+          throw err;
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -53,9 +89,11 @@ function AddTask({ cancelAddTask, setDataArray }) {
           <button style={cancelButton} onClick={cancelAddTask}>
             Cancel
           </button>
-          <button style={submitButton} type="submit">
-            Add Task
-          </button>
+          {newTitle && newTitle.length > 2 ? (
+            <button style={submitButton} type="submit">
+              Add Task
+            </button>
+          ) : null}
         </div>
       </form>
     </div>
