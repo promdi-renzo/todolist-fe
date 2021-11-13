@@ -3,10 +3,9 @@ import Task from "../components/Task";
 
 import AddTask from "../components/AddTask";
 
-function Todo({ DataArray, setDataArray, state, reload }) {
+function Todo({ DataArray, toggleTask, setDataArray, state }) {
 
   const [willAddTask, setWillAddTask] = state;
-
 
   const cancelAddTask = () => {
     setWillAddTask(false);
@@ -18,7 +17,7 @@ function Todo({ DataArray, setDataArray, state, reload }) {
       {DataArray
         .filter((item) => !item.archived)
         .map((item) => (
-          <Task key={item.id} data={DataArray} setData={setDataArray} task={item} />
+          <Task key={item.id} data={DataArray} toggleTask={toggleTask} task={item} />
         ))}
     </div>
   );

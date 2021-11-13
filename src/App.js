@@ -5,6 +5,7 @@ import Todo from "./pages/Todo";
 import Archived from "./pages/Archived";
 import TodoView from "./pages/TodoView";
 import { useEffect, useState } from "react";
+import { GoTasklist } from "react-icons/go";
 // import About from './pages/About'
 
 function App() {
@@ -12,13 +13,25 @@ function App() {
   const [DataArray, setDataArray] = useState([]);
 
   useEffect(() => {
-    const url =
-      "https://618f0ee950e24d0017ce1577.mockapi.io/api/todos";
+    const url = "https://618f0ee950e24d0017ce1577.mockapi.io/api/todos";
     axios.get(url).then((res) => {
       setDataArray(res.data);
     });
   }, []);
 
+  const toggleTask = (id) => {
+    const newDataArray = DataArray.map((item) => {
+      if (item.id === id) {
+        item.completed = !item.completed;
+        axios.put(
+          `https://618f0ee950e24d0017ce1577.mockapi.io/api/todos/${id}`,
+          item
+        );
+      }
+      return item;
+    });
+    setDataArray(newDataArray);
+  };
   return (
     <Routes>
       <Route
@@ -32,6 +45,7 @@ function App() {
           <Todo
             DataArray={DataArray}
             setDataArray={setDataArray}
+            toggleTask={toggleTask}
             state={[willAddTask, setWillAddTask]}
           />
         }

@@ -1,26 +1,16 @@
 import { Link } from "react-router-dom";
 import "../styles/checkbox.css";
 
-function Task({ data, task, setData }) {
+function Task({ task, toggleTask }) {
   const box = {
     backgroundColor: task.completed ? "#000" : "#fff",
-  };
-  const setCompleted = () => {
-    const newdata = data.map((item) => {
-      if (item.id === task.id) {
-        item.completed = !item.completed;
-      }
-      return item;
-    });
-    setData(newdata);
-    console.log(newdata);
   };
 
   return (
     <div style={taskStyle}>
       <div style={parentStyle}>
         {/* our custom checkbox */}
-        <div className="checkbox" onClick={setCompleted}>
+        <div className="checkbox" onClick={()=>toggleTask(task.id)}>
           <input type="checkbox" checked={task.completed} readOnly="yes" />
           <span style={box} className="mark"></span>
         </div>
