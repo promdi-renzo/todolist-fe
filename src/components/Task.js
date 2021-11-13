@@ -16,10 +16,10 @@ function Task({ task, toggleTask }) {
         </div>
 
         <div style={childStyle}>
-          <h3>
+          <h3 style={breakWord}>
             <Link to={"/" + task.id}>{task.title}</Link>
           </h3>
-          <p>{task.description}</p>
+          <p style={breakWord}>{task.description}</p>
         </div>
       </div>
     </div>
@@ -52,6 +52,9 @@ const childStyle = {
   display: "flex",
   flexDirection: "column",
   fontFamily: "Architects Daughter, cursive",
+};
+const breakWord = {
+  wordBreak: "break-word",
 };
 
 export default Task;
