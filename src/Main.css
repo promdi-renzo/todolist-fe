@@ -61,3 +61,14 @@ svg text::selection{
     justify-content: flex-start;
     align-items: center;
 }
+.error-input{
+    border: 2px solid #f00;
+    outline: #f00;
+}
+.success-input{
+    border: 2px solid #0f0;
+    outline: #0f0;
+}
+input, textarea {
+    outline:#00f;
+}

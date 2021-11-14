@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useSpring, animated, config } from "react-spring";
 
 function AddTask({ cancelAddTask, setDataArray }) {
   const [newTitle, setNewTitle] = useState("");
@@ -11,6 +12,20 @@ function AddTask({ cancelAddTask, setDataArray }) {
       return [...prevDataArray, data];
     });
   };
+  const addStyle = useSpring({
+    from: {
+      opacity: 0,
+      transform: "translateY(-200px)",
+    },
+    to: {
+      opacity: 1,
+      transform: "translateY(0px)",
+      width: "100%",
+      borderBottom: "2px solid #000",
+      backgroundColor: "rgba(255,255,255,.5)"
+    },
+    config: config.stiff
+  });
   const handleTitleInput = (e) => {
     const target = e.target;
     if (target.value.length < 2 || target.value.length > 25) {
@@ -68,7 +83,7 @@ function AddTask({ cancelAddTask, setDataArray }) {
   };
 
   return (
-    <div className="add-task" style={addStyle}>
+    <animated.div className="add-task" style={addStyle}>
       <form style={formStyle} onSubmit={handleSubmit}>
         <div className="input-group" style={inputGroupStyle}>
           <input
@@ -96,14 +111,10 @@ function AddTask({ cancelAddTask, setDataArray }) {
           ) : null}
         </div>
       </form>
-    </div>
+    </animated.div>
   );
 }
-const addStyle = {
-  width: "100%",
-  borderBottom: "2px solid #000",
-  backgroundColor: "rgba(255,255,255,.5)",
-};
+
 const formStyle = {
   display: "flex",
   flexDirection: "column",
