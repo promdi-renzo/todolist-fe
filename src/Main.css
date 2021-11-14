@@ -21,7 +21,7 @@ h6 {
     font-family: 'Permanent Marker', cursive;
     font-weight: normal;
 }
-p, pre{
+p, pre, button, input, textarea {
     font-family: 'Architects Daughter', cursive;
     font-size: 1rem;
 }
@@ -29,6 +29,11 @@ a {
     color: rgba(0, 0, 0, 1);
     font-weight: 900;
 }
+button {
+    cursor: pointer;
+}
+
+
 svg text{
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -55,4 +60,15 @@ svg text::selection{
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+}
+.error-input{
+    border: 2px solid #f00;
+    outline: #f00;
+}
+.success-input{
+    border: 2px solid #0f0;
+    outline: #0f0;
+}
+input, textarea {
+    outline:#00f;
 }

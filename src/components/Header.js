@@ -1,29 +1,38 @@
-import { GoChevronLeft, GoPlus, GoSearch, GoHistory, GoTasklist } from "react-icons/go";
-function Header({ title, setIsCheckedAll }) {
-
+import {
+  GoChevronLeft,
+  GoPlus,
+  GoSearch,
+  GoHistory,
+  GoTasklist,
+} from "react-icons/go";
+function Header({ title, setIsCheckedAll, state }) {
   const ToDoControls = () => {
+    const setWillAddTask = state[1];
+    const addTask = () => {
+      setWillAddTask(true);
+    };
+
     return (
       <div className="controls" style={controlsStyle}>
         <GoChevronLeft style={iconStyle} onClick={goBack} />
-        <GoPlus style={iconStyle} />
+        <GoPlus style={iconStyle} onClick={addTask} />
         <GoSearch style={iconStyle} />
       </div>
     );
   };
   const ArchivedControls = () => {
-
     const unArchive = () => {
       setIsCheckedAll(false);
     };
 
     const checkAll = () => {
-      setIsCheckedAll((r)=>!r);
+      setIsCheckedAll((r) => !r);
     };
 
     return (
       <div className="controls" style={controlsStyle}>
         <GoChevronLeft style={iconStyle} onClick={goBack} />
-        <GoHistory style={iconStyle} onClick={unArchive}/>
+        <GoHistory style={iconStyle} onClick={unArchive} />
         <GoTasklist style={iconStyle} onClick={checkAll} />
       </div>
     );

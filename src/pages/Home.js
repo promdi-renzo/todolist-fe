@@ -1,11 +1,14 @@
 import MainButtons from "../components/MainButtons";
 import Footer from "../components/Footer";
 
-function Home() {
+function Home({state}) {
+
+  
+
   return (
     <div style={homeStyle}>
-      <MainButtons />
-      <Footer />
+      <MainButtons/>
+      <Footer state={state}/>
     </div>
   );
 }
