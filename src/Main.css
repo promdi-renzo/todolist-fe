@@ -11,6 +11,7 @@ html, body{
     background-color: #fff;
     background: url('./assets/background.jpg') no-repeat;
     background-size: fixed;
+    background-attachment: fixed;
 }
 h1,
 h2,
