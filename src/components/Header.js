@@ -28,7 +28,7 @@ function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
       </div>
     );
   }
-  const ArchivedControls = () => {
+  const DefaultControls = () => {
 
     return (
       <div className="controls" style={controlsStyle}>
@@ -40,12 +40,10 @@ function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
     switch (title) {
       case "To Do":
         return <ToDoControls />;
-      case "Archived":
-        return <ArchivedControls />;
       case "View":
         return <ViewTodoControls />;
       default:
-        return <></>;
+        return <DefaultControls />;
     }
   };
 

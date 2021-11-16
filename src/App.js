@@ -5,7 +5,7 @@ import Todo from "./pages/Todo";
 import Archived from "./pages/Archived";
 import TodoView from "./pages/TodoView";
 import { useEffect, useState } from "react";
-// import About from './pages/About'
+import About from './pages/About'
 
 function App() {
   const [willAddTask, setWillAddTask] = useState(false);
