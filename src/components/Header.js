@@ -1,39 +1,38 @@
 import {
   GoChevronLeft,
   GoPlus,
-  GoSearch,
-  GoHistory,
-  GoTasklist,
+  GoArchive,
+  GoCheck
 } from "react-icons/go";
-function Header({ title, setIsCheckedAll, state }) {
+
+function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
   const ToDoControls = () => {
     const setWillAddTask = state[1];
     const addTask = () => {
-      setWillAddTask(true);
+      setWillAddTask((prev) => !prev);
     };
 
     return (
       <div className="controls" style={controlsStyle}>
         <GoChevronLeft style={iconStyle} onClick={goBack} />
         <GoPlus style={iconStyle} onClick={addTask} />
-        <GoSearch style={iconStyle} />
       </div>
     );
   };
+  const ViewTodoControls = () => {
+    return (
+      <div className="controls" style={controlsStyle}>
+        <GoChevronLeft style={iconStyle} onClick={goBack} />
+        <GoArchive style={iconStyle} onClick={sendToArchive} /> 
+        <GoCheck style={iconStyle} onClick={save} />
+      </div>
+    );
+  }
   const ArchivedControls = () => {
-    const unArchive = () => {
-      setIsCheckedAll(false);
-    };
-
-    const checkAll = () => {
-      setIsCheckedAll((r) => !r);
-    };
 
     return (
       <div className="controls" style={controlsStyle}>
         <GoChevronLeft style={iconStyle} onClick={goBack} />
-        <GoHistory style={iconStyle} onClick={unArchive} />
-        <GoTasklist style={iconStyle} onClick={checkAll} />
       </div>
     );
   };
@@ -43,6 +42,8 @@ function Header({ title, setIsCheckedAll, state }) {
         return <ToDoControls />;
       case "Archived":
         return <ArchivedControls />;
+      case "View":
+        return <ViewTodoControls />;
       default:
         return <></>;
     }

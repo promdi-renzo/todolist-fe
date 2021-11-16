@@ -18,15 +18,10 @@ function TaskArchived({ data, task, setData, checked }) {
   return (
     <div style={taskStyle}>
       <div style={parentStyle}>
-        {/* our custom checkbox */}
-        <div className="checkbox" onClick={handleCheckbox}>
-          <input type="checkbox" checked={isChecked} readOnly="yes" />
-          <span style={box} className="mark"></span>
-        </div>
 
         <div style={childStyle}>
           <h3>
-            <Link to={"/" + task.id}>{task.title}</Link>
+           {task.title}
           </h3>
           <p>{task.description}</p>
         </div>

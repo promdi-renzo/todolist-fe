@@ -55,15 +55,15 @@ function AddTask({ cancelAddTask, setDataArray }) {
     setNewDescription(target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       if (!acceptTitle || !acceptDescription) {
         return;
       }
-      axios
-        .post("https://618f0ee950e24d0017ce1577.mockapi.io/api/todos", {
+      await axios
+        .post("https://618f0ee950e24d0017ce1577.mockapi.io/todos", {
           title: newTitle,
           description: newDescription,
         })
