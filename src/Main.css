@@ -12,6 +12,7 @@ html, body{
     background: url('./assets/background.jpg') no-repeat;
     background-size: fixed;
     background-attachment: fixed;
+    overflow-x: hidden;
 }
 h1,
 h2,

@@ -74,7 +74,7 @@ function App() {
 
       <Route
         path="/:id"
-        element={<TodoView DataArray={DataArray} fetchData={fetchData} />}
+        element={<TodoView DataArray={DataArray} fetchData={fetchData} hasError={hasError} />}
       />
     </Routes>
   );

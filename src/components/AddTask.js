@@ -6,7 +6,7 @@ function AddTask({ cancelAddTask, setDataArray }) {
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [acceptTitle, setAcceptTitle] = useState(false);
-  const [acceptDescription, setAcceptDescription] = useState(false);
+  const [acceptDescription, setAcceptDescription] = useState(true);
   const updateDataArray = (data) => {
     setDataArray((prevDataArray) => {
       return [...prevDataArray, data];

@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
+import { useSpring, animated, config } from "react-spring";
 import { useState, useEffect } from "react";
 import "../styles/checkbox.css";
 
 function TaskArchived({ data, task, setData, checked }) {
   const [isChecked, setIsChecked] = useState(checked);
-    useEffect(() => {   
-        setIsChecked(checked);
-    }, [checked]);
+  useEffect(() => {
+    setIsChecked(checked);
+  }, [checked]);
 
   const box = {
     backgroundColor: isChecked ? "#000" : "#fff",
@@ -14,19 +14,32 @@ function TaskArchived({ data, task, setData, checked }) {
   const handleCheckbox = () => {
     setIsChecked(!isChecked);
   };
-
+  const anim = useSpring({
+    from: {
+      opacity: 0,
+      transform: "translate(-20%)",
+    },
+    to: {
+      width: "100%",
+      borderBottom: "1px dashed #000",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "rgba(255,255,255,.3)",
+      opacity: 1,
+      transform: "translateX(0%)",
+    },
+    config: config.gentle,
+  });
   return (
-    <div style={taskStyle}>
+    <animated.div style={anim}>
       <div style={parentStyle}>
-
         <div style={childStyle}>
-          <h3>
-           {task.title}
-          </h3>
+          <h3>{task.title}</h3>
           <p>{task.description}</p>
         </div>
       </div>
-    </div>
+    </animated.div>
   );
 }
 

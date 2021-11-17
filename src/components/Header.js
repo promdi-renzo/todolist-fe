@@ -14,7 +14,7 @@ function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
 
     return (
       <div className="controls" style={controlsStyle}>
-        <GoChevronLeft style={iconStyle} onClick={goBack} />
+        <GoChevronLeft style={iconStyle} onClick={()=>goBack('/')} />
         <GoPlus style={iconStyle} onClick={addTask} />
       </div>
     );
@@ -22,7 +22,7 @@ function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
   const ViewTodoControls = () => {
     return (
       <div className="controls" style={controlsStyle}>
-        <GoChevronLeft style={iconStyle} onClick={goBack} />
+        <GoChevronLeft style={iconStyle} onClick={()=>goBack('/todos')} />
         <GoArchive style={iconStyle} onClick={sendToArchive} /> 
         <GoCheck style={iconStyle} onClick={save} />
       </div>
@@ -32,7 +32,7 @@ function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
 
     return (
       <div className="controls" style={controlsStyle}>
-        <GoChevronLeft style={iconStyle} onClick={goBack} />
+        <GoChevronLeft style={iconStyle} onClick={()=>goBack('/')} />
       </div>
     );
   };
@@ -47,8 +47,8 @@ function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
     }
   };
 
-  const goBack = () => {
-    return window.history.back();
+  const goBack = (where = undefined) => {
+    window.location.href = where;
   };
 
   return (

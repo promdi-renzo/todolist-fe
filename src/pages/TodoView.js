@@ -9,6 +9,7 @@ function TodoView({ DataArray, fetchData }) {
   const { id } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [todo, setTodo] = useState(null);
+  const [ hasError, setHasError ] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,6 +17,8 @@ function TodoView({ DataArray, fetchData }) {
         .get(`https://618f0ee950e24d0017ce1577.mockapi.io/todos/${id}`)
         .then((res) => res.data)
         .then((data) => {
+          if(data.archived) window.location.href = "/todos";
+
           setTodo(data);
           setIsLoaded(true);
         })
@@ -31,8 +34,10 @@ function TodoView({ DataArray, fetchData }) {
       return await axios
       .put(`https://618f0ee950e24d0017ce1577.mockapi.io/todos/${id}`, todo)
       .then(() => {
-        fetchData();
-        console.log("saved")
+        fetchData((err, res)=>{
+          if(err) throw err;
+          window.location.href = "/todos";
+        });
       })
       .catch((err) => console.log(err));
     }
