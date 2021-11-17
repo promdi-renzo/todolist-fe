@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useCallback } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import Loading from "./LoadingPages/Loading";
 import Header from "../components/Header";
 
@@ -9,7 +9,11 @@ function TodoView({ DataArray, fetchData }) {
   const { id } = useParams();
   const [isLoaded, setIsLoaded] = useState(false);
   const [todo, setTodo] = useState(null);
-  const [ hasError, setHasError ] = useState(false);
+
+  const nav = useNavigate();
+  const toTodos = useCallback(() => {
+    nav('/todos');
+  }, [nav]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +40,7 @@ function TodoView({ DataArray, fetchData }) {
       .then(() => {
         fetchData((err, res)=>{
           if(err) throw err;
-          window.location.href = "/todos";
+          toTodos();
         });
       })
       .catch((err) => console.log(err));
@@ -50,7 +54,10 @@ function TodoView({ DataArray, fetchData }) {
       archived: true,
     })
     .then(()=>{
-      window.location.href = "/todos";
+      fetchData((err, res)=>{
+        if(err) throw err;
+        toTodos();
+      });
     })
     .catch((err) => console.log(err));
   };

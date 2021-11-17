@@ -1,11 +1,16 @@
-import {
-  GoChevronLeft,
-  GoPlus,
-  GoArchive,
-  GoCheck
-} from "react-icons/go";
+import { GoChevronLeft, GoPlus, GoArchive, GoCheck } from "react-icons/go";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
+  const nav = useNavigate();
+  const goto = useCallback(
+    (to) => {
+      nav(to);
+    },
+    [nav]
+  );
+
   const ToDoControls = () => {
     const setWillAddTask = state[1];
     const addTask = () => {
@@ -14,7 +19,7 @@ function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
 
     return (
       <div className="controls" style={controlsStyle}>
-        <GoChevronLeft style={iconStyle} onClick={()=>goBack('/')} />
+        <GoChevronLeft style={iconStyle} onClick={() => goto("/")} />
         <GoPlus style={iconStyle} onClick={addTask} />
       </div>
     );
@@ -22,17 +27,16 @@ function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
   const ViewTodoControls = () => {
     return (
       <div className="controls" style={controlsStyle}>
-        <GoChevronLeft style={iconStyle} onClick={()=>goBack('/todos')} />
-        <GoArchive style={iconStyle} onClick={sendToArchive} /> 
+        <GoChevronLeft style={iconStyle} onClick={() => goto("/todos")} />
+        <GoArchive style={iconStyle} onClick={sendToArchive} />
         <GoCheck style={iconStyle} onClick={save} />
       </div>
     );
-  }
+  };
   const DefaultControls = () => {
-
     return (
       <div className="controls" style={controlsStyle}>
-        <GoChevronLeft style={iconStyle} onClick={()=>goBack('/')} />
+        <GoChevronLeft style={iconStyle} onClick={()=>goto('/')}/>
       </div>
     );
   };
@@ -45,10 +49,6 @@ function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
       default:
         return <DefaultControls />;
     }
-  };
-
-  const goBack = (where = undefined) => {
-    window.location.href = where;
   };
 
   return (

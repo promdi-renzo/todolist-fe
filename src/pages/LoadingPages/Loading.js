@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import "../../styles/Loader.css";
 
 function Loading() {

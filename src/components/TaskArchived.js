@@ -1,19 +1,8 @@
 import { useSpring, animated, config } from "react-spring";
-import { useState, useEffect } from "react";
 import "../styles/checkbox.css";
 
-function TaskArchived({ data, task, setData, checked }) {
-  const [isChecked, setIsChecked] = useState(checked);
-  useEffect(() => {
-    setIsChecked(checked);
-  }, [checked]);
+function TaskArchived({ task }) {
 
-  const box = {
-    backgroundColor: isChecked ? "#000" : "#fff",
-  };
-  const handleCheckbox = () => {
-    setIsChecked(!isChecked);
-  };
   const anim = useSpring({
     from: {
       opacity: 0,
@@ -42,15 +31,6 @@ function TaskArchived({ data, task, setData, checked }) {
     </animated.div>
   );
 }
-
-const taskStyle = {
-  width: "100%",
-  borderBottom: "1px dashed #000",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  backgroundColor: "rgba(255,255,255,.3)",
-};
 const parentStyle = {
   width: "100%",
   height: "auto",

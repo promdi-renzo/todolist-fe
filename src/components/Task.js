@@ -43,10 +43,6 @@ function Task({ task, toggleTask }) {
     </animated.div>
   );
 }
-
-const taskStyle = {
-
-};
 const parentStyle = {
   width: "100%",
   height: "auto",
