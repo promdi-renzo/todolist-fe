@@ -129,8 +129,6 @@ const inputStyle = {
 };
 const descStyle = {
   width: "100%",
-  height: "100%",
-  col: 25,
   border: "none",
   borderBottom: "1px solid #000",
   background: "transparent",

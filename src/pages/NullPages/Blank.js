@@ -1,11 +1,11 @@
-import Void from "../../assets/void.svg";
+import BlankData from "../../assets/blank.svg";
 
 import "../../styles/Null.css";
-function Blank() {
+function Blank({ text }) {
   return (
     <div className="null-pages">
-      <img src={Void} alt="Nothing here." loading="lazy" />
-      <p>There is nothing here.</p>
+      <img src={BlankData} alt="Empty data." loading="lazy" />
+      <p>{text}</p>
     </div>
   );
 }
