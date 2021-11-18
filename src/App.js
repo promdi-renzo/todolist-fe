@@ -39,17 +39,21 @@ function App() {
   }, []);
 
   const toggleTask = (id) => {
-    const newDataArray = DataArray.map((item) => {
-      if (item.id === id) {
-        item.completed = !item.completed;
-        axios.put(
-          `https://618f0ee950e24d0017ce1577.mockapi.io/todos/${id}`,
-          item
-        );
-      }
-      return item;
-    });
-    setDataArray(newDataArray);
+    try {
+      const newDataArray = DataArray.map((item) => {
+        if (item.id === id) {
+          item.completed = !item.completed;
+            axios.put(
+              `https://618f0ee950e24d0017ce1577.mockapi.io/todos/${id}`,
+              item
+            )
+        }
+        return item;
+      });
+      setDataArray(newDataArray);
+    } catch (error) {
+      console.log(error)
+    }
   };
   return (
     <Routes>
