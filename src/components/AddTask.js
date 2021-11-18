@@ -6,7 +6,9 @@ function AddTask({ cancelAddTask, setDataArray }) {
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [acceptTitle, setAcceptTitle] = useState(false);
-  const [acceptDescription, setAcceptDescription] = useState(false);
+  const [acceptDescription, setAcceptDescription] = useState(true);
+  const [isPosting, setIsPosting] = useState(false);
+
   const updateDataArray = (data) => {
     setDataArray((prevDataArray) => {
       return [...prevDataArray, data];
@@ -22,9 +24,9 @@ function AddTask({ cancelAddTask, setDataArray }) {
       transform: "translateY(0px)",
       width: "100%",
       borderBottom: "2px solid #000",
-      backgroundColor: "rgba(255,255,255,.5)"
+      backgroundColor: "rgba(255,255,255,.5)",
     },
-    config: config.stiff
+    config: config.stiff,
   });
   const handleTitleInput = (e) => {
     const target = e.target;
@@ -55,18 +57,24 @@ function AddTask({ cancelAddTask, setDataArray }) {
     setNewDescription(target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (isPosting) return;
+    const request = axios.CancelToken.source();
     try {
       if (!acceptTitle || !acceptDescription) {
         return;
       }
-      axios
-        .post("https://618f0ee950e24d0017ce1577.mockapi.io/api/todos", {
-          title: newTitle,
-          description: newDescription,
-        })
+      setIsPosting(true);
+      await axios
+        .post(
+          "https://618f0ee950e24d0017ce1577.mockapi.io/todos",
+          {
+            title: newTitle,
+            description: newDescription,
+          },
+          { cancelToken: request.token }
+        )
         .then((res) => res.data)
         .then((data) => {
           updateDataArray(data);
@@ -78,7 +86,11 @@ function AddTask({ cancelAddTask, setDataArray }) {
           throw err;
         });
     } catch (error) {
+      if (axios.isCancel(error)) return;
       console.log(error);
+    } finally {
+      setIsPosting(false);
+      request.cancel();
     }
   };
 

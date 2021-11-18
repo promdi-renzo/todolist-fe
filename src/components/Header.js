@@ -1,39 +1,42 @@
-import {
-  GoChevronLeft,
-  GoPlus,
-  GoSearch,
-  GoHistory,
-  GoTasklist,
-} from "react-icons/go";
-function Header({ title, setIsCheckedAll, state }) {
+import { GoChevronLeft, GoPlus, GoArchive, GoCheck } from "react-icons/go";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+
+function Header({ title, setIsCheckedAll, state, sendToArchive, save }) {
+  const nav = useNavigate();
+  const goto = useCallback(
+    (to) => {
+      nav(to);
+    },
+    [nav]
+  );
+
   const ToDoControls = () => {
     const setWillAddTask = state[1];
     const addTask = () => {
-      setWillAddTask(true);
+      setWillAddTask((prev) => !prev);
     };
 
     return (
       <div className="controls" style={controlsStyle}>
-        <GoChevronLeft style={iconStyle} onClick={goBack} />
+        <GoChevronLeft style={iconStyle} onClick={() => goto("/")} />
         <GoPlus style={iconStyle} onClick={addTask} />
-        <GoSearch style={iconStyle} />
       </div>
     );
   };
-  const ArchivedControls = () => {
-    const unArchive = () => {
-      setIsCheckedAll(false);
-    };
-
-    const checkAll = () => {
-      setIsCheckedAll((r) => !r);
-    };
-
+  const ViewTodoControls = () => {
     return (
       <div className="controls" style={controlsStyle}>
-        <GoChevronLeft style={iconStyle} onClick={goBack} />
-        <GoHistory style={iconStyle} onClick={unArchive} />
-        <GoTasklist style={iconStyle} onClick={checkAll} />
+        <GoChevronLeft style={iconStyle} onClick={() => goto("/todos")} />
+        <GoArchive style={iconStyle} onClick={sendToArchive} />
+        <GoCheck style={iconStyle} onClick={save} />
+      </div>
+    );
+  };
+  const DefaultControls = () => {
+    return (
+      <div className="controls" style={controlsStyle}>
+        <GoChevronLeft style={iconStyle} onClick={()=>goto('/')}/>
       </div>
     );
   };
@@ -41,15 +44,11 @@ function Header({ title, setIsCheckedAll, state }) {
     switch (title) {
       case "To Do":
         return <ToDoControls />;
-      case "Archived":
-        return <ArchivedControls />;
+      case "View":
+        return <ViewTodoControls />;
       default:
-        return <></>;
+        return <DefaultControls />;
     }
-  };
-
-  const goBack = () => {
-    return window.history.back();
   };
 
   return (

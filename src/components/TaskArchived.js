@@ -1,48 +1,36 @@
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useSpring, animated, config } from "react-spring";
 import "../styles/checkbox.css";
 
-function TaskArchived({ data, task, setData, checked }) {
-  const [isChecked, setIsChecked] = useState(checked);
-    useEffect(() => {   
-        setIsChecked(checked);
-    }, [checked]);
+function TaskArchived({ task }) {
 
-  const box = {
-    backgroundColor: isChecked ? "#000" : "#fff",
-  };
-  const handleCheckbox = () => {
-    setIsChecked(!isChecked);
-  };
-
+  const anim = useSpring({
+    from: {
+      opacity: 0,
+      transform: "translate(-20%)",
+    },
+    to: {
+      width: "100%",
+      borderBottom: "1px dashed #000",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "rgba(255,255,255,.3)",
+      opacity: 1,
+      transform: "translateX(0%)",
+    },
+    config: config.gentle,
+  });
   return (
-    <div style={taskStyle}>
+    <animated.div style={anim}>
       <div style={parentStyle}>
-        {/* our custom checkbox */}
-        <div className="checkbox" onClick={handleCheckbox}>
-          <input type="checkbox" checked={isChecked} readOnly="yes" />
-          <span style={box} className="mark"></span>
-        </div>
-
         <div style={childStyle}>
-          <h3>
-            <Link to={"/" + task.id}>{task.title}</Link>
-          </h3>
+          <h3>{task.title}</h3>
           <p>{task.description}</p>
         </div>
       </div>
-    </div>
+    </animated.div>
   );
 }
-
-const taskStyle = {
-  width: "100%",
-  borderBottom: "1px dashed #000",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  backgroundColor: "rgba(255,255,255,.3)",
-};
 const parentStyle = {
   width: "100%",
   height: "auto",
